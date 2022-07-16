@@ -9,19 +9,7 @@ $(document).ready(function () {
 
 
 
-  // Home Route
-  $.ajax({
-    url: baseurl+'/post',
-    type: "get",
-          success: function(response) {
-              let posts = response.posts;
-              authuser=response.authuser;
-              // console.log('authuser :>> ', authuser);
-              console.log('posts::> ', posts);
-              postAdd(posts);
-              lastIdArray = posts.map(post =>  post.id);
-          }
-  });
+
 
   // Add Comment
   $(document).on('click','.newcomment',function(){

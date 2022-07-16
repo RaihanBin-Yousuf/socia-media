@@ -41,9 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('posts', PostController::class);
     Route::get('mypost', [PostController::class, 'mypost'])->name('mypost');
     Route::get('deleteUserPost/{id}', [PostController::class, 'destroy'])->name('deleteUserPost');
-    // Route::resource('comments', CommentController::class);
-    // Route::post('showcomments', [CommentController::class, 'show'])->name('showcomments');
-    // Route::post('addcomment', [CommentController::class, 'store'])->name('addcomment');
-    // Route::post('likes', [LikeController::class, 'update'])->name('post.likes');
-    // Route::post('showlikes', [LikeController::class, 'show'])->name('showlikes');
+    Route::resource('comments', CommentController::class);
+    Route::post('showcomments', [CommentController::class, 'show'])->name('showcomments');
+    Route::post('addcomment', [CommentController::class, 'store'])->name('addcomment');
+    Route::post('likes', [LikeController::class, 'update'])->name('post.likes');
+    Route::post('showlikes', [LikeController::class, 'show'])->name('showlikes');
 });

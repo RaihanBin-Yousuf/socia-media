@@ -23,8 +23,32 @@ class PostController extends Controller
      */
     public function index(Request $request, $id = null)
     {
+        if ($request->ajax()) {
+            if ($id) {
+                $posts = Post::where('id', '>', $id)
+                    ->orderBy('id', 'ASC')
+                    ->with('user:id,created_at,name,profile_img', 'comments:id,post_id', 'likes:id,post_id')
+                    ->select(['id', 'image', 'description', 'created_at', 'user_id'])
+                    ->limit(5)
+                    ->get();
+            } else {
+                $posts = Post::orderBy('id', 'ASC')
+                    ->with('user:id,created_at,name,profile_img', 'comments:id,post_id', 'likes:id,post_id')
+                    ->select(['id', 'image', 'description', 'created_at', 'user_id'])
+                    ->limit(5)
+                    ->get();
+            }
+
+            foreach ($posts as $post) {
+                $post->user->postprofile_img = setImage($post->user->profile_img, 'user');
+                $post->image = $post->image ? setImage($post->image) : null;
+               
+            }
+            return response()->json($posts);
+        }
         return view('home');
     }
+
 
     public function mypost()
     {
